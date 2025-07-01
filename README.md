@@ -1,7 +1,17 @@
-# Basic HTTP Stream MCP example
+# Minimal MCP Client and Server demo.
 
-1. `source setup.sh`
+This repository demonstrates the power and flexibility of MCP. Lan
 
-2. In a terminal, call `python server.py` to start MCP server.
+1. In a terminal, call `python src/server.py` to start MCP server. We're using HTTP streamable.
 
-3. In another terminal, call `python client.py`. Make sure 
+2. In another terminal, call `python src/client.py`. Check `python client.py -h` for options.
+  - `python src/client.py --prompt "what's 9+9?" --ollama_model qwen3 --llm ollama`
+  - `python src/client.py --prompt "what's 9+9?" --llm ollama --ollama_model deepseek-r1`
+  - `python src/client.py --prompt "what's 9+9?" --llm google`
+
+## Resources
+
+- https://modelcontextprotocol.io/introduction: MCP Theory.
+- https://python.langchain.com/api_reference/reference.html: Abstract object that represents various LLM models.
+- https://docs.mcp-use.com/: Abstract interface to between MCP server and various LLM models, remotely or local (ollama).
+- https://gofastmcp.com/servers/server: FastMCP documentation.
