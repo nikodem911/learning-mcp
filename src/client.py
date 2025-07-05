@@ -2,6 +2,7 @@ import asyncio
 from langchain_ollama.chat_models import ChatOllama
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from mcp_use import MCPAgent, MCPClient
+from fastmcp import Client
 import argparse
 
 async def main():
@@ -23,13 +24,23 @@ async def main():
     else:
         raise ValueError("Invalid LLM backend specified. Use 'ollama' or 'google'.")
 
+    # Test tools / resource direct query
+    fast_client = Client("http://localhost:8000/mcp") 
+    async with fast_client:
+        res = await fast_client.list_resources()
+        print(res)
+        t_res = await fast_client.list_resource_templates()
+        print(t_res)
+        file_res = await fast_client.read_resource("file://some_resource.txt")
+        print(file_res)
      
+    # Use agent
     client = MCPClient.from_config_file("servers.json")
-    
+
     # Wire the LLM to the client
     agent = MCPAgent(llm=llm, client=client, max_steps=20)
-
-    # # Give prompt to the agent
+    
+    # Give prompt to the agent
     try:
         # Agent Mode
         result = await agent.run(parsed_args.prompt)

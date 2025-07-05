@@ -8,7 +8,7 @@ import asyncio
 
 async def main():
     # Stateless server (no session persistence, no sse stream with supported client)
-    mcp = FastMCP("MCPServer", stateless_http=True)
+    mcp = FastMCP("MCPServer", stateless_http=True, json_response=True)
 
     # Add an addition tool
     @mcp.tool()
@@ -22,8 +22,9 @@ async def main():
         return {
             "version": "0.1"
         }
-
-    @mcp.resource("file://{filename}")
+    
+    # This particular resource tempalte hasn't been working with agents.
+    @mcp.resource("file://{filename}/")
     async def read_resource_file(filename) -> str:
         print("Get file!")
         try:
