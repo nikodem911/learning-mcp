@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Generate gRPC Python Stubs",
+			"type": "shell",
+			"command": "python -m grpc_tools.protoc -Iproto_gen=. --python_out=. --pyi_out=. --grpc_python_out=. sensors.proto",
+			"options": {
+				"cwd": "${workspaceFolder}/src/grpc_client"
+			},
+			"problemMatcher": []
+		}
+	]
+}

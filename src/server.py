@@ -6,9 +6,16 @@ from dataclasses import dataclass
 import aiofiles
 import asyncio
 
+from grpc_client.grpc_client import GrpcImuClient,ImuData
+
 async def main():
     # Stateless server (no session persistence, no sse stream with supported client)
     mcp = FastMCP("MCPServer", stateless_http=True, json_response=True)
+    grpc_client = GrpcImuClient()
+
+    @mcp.tool()
+    def get_imu_sample() -> ImuData:
+        return grpc_client.GetImu()
 
     # Add an addition tool
     @mcp.tool()

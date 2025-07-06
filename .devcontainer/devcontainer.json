@@ -14,7 +14,9 @@
 				"jebbs.plantuml"
 			],
 			"settings": {
-				"python.defaultInterpreterPath": "/opt/venv/bin/python"
+				"python.defaultInterpreterPath": "/opt/venv/bin/python",
+				"terminal.integrated.env.linux": {
+					"PYTHONPATH": "/workspaces/learning-mcp/src:/workspaces/learning-mcp/src/grpc_client"}
 				}
 		}
 	},
