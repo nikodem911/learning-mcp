@@ -10,7 +10,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-python.python"
+				"ms-python.python",
+				"jebbs.plantuml"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/opt/venv/bin/python"

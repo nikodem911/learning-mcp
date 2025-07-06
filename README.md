@@ -1,13 +1,14 @@
-# Minimal MCP Client and Server demo.
+# Minimal MCP client and server Example.
 
 This repository demonstrates the power and flexibility of MCP. Lan
 
 1. In a terminal, call `python src/server.py` to start MCP server. We're using HTTP streamable.
 
-2. In another terminal, call `python src/client.py`. Check `python client.py -h` for options.
-  - `python src/client.py --prompt "what's 9+9?" --ollama_model qwen3 --llm ollama`
-  - `python src/client.py --prompt "what's 9+9?" --llm ollama --ollama_model deepseek-r1`
-  - `python src/client.py --prompt "what's 9+9?" --llm google`
+2. In another terminal, call `python src/client.py`. Check `python client.py -h` for options. If using ollama, make sure to serve and pull the models.
+
+- `python src/client.py --prompt "what's 9+9?" --ollama_model qwen3 --llm ollama`
+- `python src/client.py --prompt "what's 9+9?" --llm ollama --ollama_model deepseek-r1`
+- `python src/client.py --prompt "what's 9+9?" --llm google`
 
 ## Resources
 
