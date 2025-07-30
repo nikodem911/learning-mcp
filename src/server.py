@@ -6,16 +6,17 @@ from dataclasses import dataclass
 import aiofiles
 import asyncio
 
-from grpc_client.grpc_client import GrpcImuClient,ImuData
+from grpc_client.blinky_grpc_client import BlinkyClient
 
 async def main():
     # Stateless server (no session persistence, no sse stream with supported client)
     mcp = FastMCP("MCPServer", stateless_http=True, json_response=True)
-    grpc_client = GrpcImuClient()
+    blinky_client = BlinkyClient()
 
     @mcp.tool()
-    def get_imu_sample() -> ImuData:
-        return grpc_client.GetImu()
+    def turn_led_on(line:int, on:bool):
+        blinky_client.SetLedOn(line, on)
+        return 0 # TODO errors are being thrown
 
     # Add an addition tool
     @mcp.tool()

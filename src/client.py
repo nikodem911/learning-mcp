@@ -4,6 +4,8 @@ from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from mcp_use import MCPAgent, MCPClient
 from fastmcp import Client
 import argparse
+from dotenv import load_dotenv
+import os
 
 async def main():
     
@@ -11,7 +13,9 @@ async def main():
     args.add_argument("--llm", type=str, default="google", help="Select LLM backend: 'ollama' or 'google'")
     args.add_argument("--ollama_model", type=str, default="qwen3", help="Ollama model to use. Default is 'qwen3'.")
     args.add_argument("--prompt", type=str, required=True, help="Prompt to send to the LLM")
-    args.parse_args()
+    
+    # Call load_dotenv() to load the environment variables from the .env file
+    load_dotenv()
 
     parsed_args = args.parse_args()
     if parsed_args.llm == "ollama":

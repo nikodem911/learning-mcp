@@ -19,11 +19,6 @@
 					"PYTHONPATH": "/workspaces/learning-mcp/src:/workspaces/learning-mcp/src/grpc_client"}
 				}
 		}
-	},
-	
-	"runArgs": [
-		"--gpus",
-		"all"
-	]
+	}
 	
 }
