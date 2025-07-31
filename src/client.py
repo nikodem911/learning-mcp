@@ -1,21 +1,23 @@
 import asyncio
+import mcp_use
 from langchain_ollama.chat_models import ChatOllama
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from mcp_use import MCPAgent, MCPClient
 from fastmcp import Client
 import argparse
 from dotenv import load_dotenv
-import os
 
 async def main():
     
     args = argparse.ArgumentParser(description="Run MCP Agent with LLM")
     args.add_argument("--llm", type=str, default="google", help="Select LLM backend: 'ollama' or 'google'")
     args.add_argument("--ollama_model", type=str, default="qwen3", help="Ollama model to use. Default is 'qwen3'.")
-    args.add_argument("--prompt", type=str, required=True, help="Prompt to send to the LLM")
+    args.add_argument("--prompt", type=str, help="Prompt to send to the LLM")
     
     # Call load_dotenv() to load the environment variables from the .env file
     load_dotenv()
+
+    # mcp_use.set_debug(0)
 
     parsed_args = args.parse_args()
     if parsed_args.llm == "ollama":
@@ -44,13 +46,25 @@ async def main():
     # Wire the LLM to the client
     agent = MCPAgent(llm=llm, client=client, max_steps=20)
     
-    # Give prompt to the agent
+    if not parsed_args.prompt:
+        print("No prompt provided. Type your prompt live")
+        while True:
+            user_input = input("YOU: ")
+            print("...")
+            # Surely there is a better way to process outputs?
+            async for chunk in agent.astream(user_input):
+            #   print(chunk, end="", flush=True)
+              if 'data' in chunk and 'output' in chunk['data'] and 'output' in chunk['data']['output']:
+                print(chunk['data']['output']['output'], end="\n", flush=True)
+
+
+    # Give a single prompt to the agent
     try:
-        # Agent Mode
+        # Agent Mode (Tools)
         result = await agent.run(parsed_args.prompt)
         print("\n🔥 Result:", result)
         
-        # Simple prompt
+        # Normal (no tools)
         # result = llm.invoke(parsed_args.prompt).content
         # print("\n🔥 Result:", result)
 

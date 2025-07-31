@@ -1,33 +1,27 @@
 @startuml Arch
+
 ' Set background color
 skinparam backgroundColor #F5F7FA
 
-' Set specific colors for each component
-skinparam component {
-    BackgroundColor<<Server>> #FFF3E0
-    BackgroundColor<<Client>> #E8F5E9
-    BackgroundColor<<LLM>> #F3E5F5
-    BackgroundColor<<GRPC>> #E1F5FE
-    BackgroundColor<<Lib>> #FBE9E7
-}
-
-skinparam interface {
-    BackgroundColor #E0F7FA
-    BorderColor #00838F
-}
-
-
-component "MCP Server" <<Server>> as MCPServer
-component "MCP Client" <<Client>> as MCPClient
-component "LLM" <<LLM>> as LLM
-component "gRPC Server" <<GRPC>> as GRPCServer
-component "High Performance Library" <<Lib>> as HighPerfLib
+[ MCP Server ] as MCPServer #FFF3E0
+[ MCP Client ] as MCPClient #E8F5E9
+[ LLM ] as LLM #F3E5F5
+[ gRPC Server ] as GRPCServer #E1F5FE
+[ LED ] as LED #FBE9E7
 actor "User" as User
 
 MCPClient <- User : interacts
 MCPClient --> MCPServer : MCP tools, resources
 LLM <- MCPClient: queries/completes
 MCPServer --> GRPCServer : gRPC
-GRPCServer -> HighPerfLib : uses
+GRPCServer <-> LED : set/get
+
+package {
+    [Tools] as Tools
+    [Resources] as Resources
+}
+
+MCPServer -down-> Tools
+MCPServer -down-> Resources
 
 @enduml
