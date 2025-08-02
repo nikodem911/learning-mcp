@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "stream-mcp-server": {
+    "led-mcp-server": {
       "type": "streamable_http",
       "url": "http://localhost:8000/mcp"
     }
