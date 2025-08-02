@@ -1,5 +1,5 @@
 import grpc
-
+import time
 from proto_gen import blinky_pb2_grpc, blinky_pb2
 
 
@@ -33,5 +33,7 @@ class BlinkyClient:
 # For testing purposes, you can run this script directly to get a sample IMU data.
 if __name__ == "__main__":
     client = BlinkyClient()
-    client.SetLedOn(1, True)
+    client.SetLedOn(17, True)
+    time.sleep(1)
+    client.SetLedOn(17, False)
     client.close()

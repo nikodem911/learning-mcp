@@ -16,10 +16,6 @@
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/opt/venv/bin/python",
-				"[python]": {
-					"editor.formatOnSave": true,
-					"editor.defaultFormatter": "ms-python.black-formatter"
-				},
 				"terminal.integrated.env.linux": {
 					"PYTHONPATH": "/workspaces/learning-mcp/src:/workspaces/learning-mcp/src/grpc_client"}
 				}

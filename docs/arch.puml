@@ -3,25 +3,30 @@
 ' Set background color
 skinparam backgroundColor #F5F7FA
 
-[ MCP Server ] as MCPServer #FFF3E0
-[ MCP Client ] as MCPClient #E8F5E9
-[ LLM ] as LLM #F3E5F5
+[ MCP Server\n<<FastMCP>> ] as MCPServer #FFF3E0
+package "MCP Host (App)" {
+[ MCP Client\n<<mcp-use>> ] as MCPClient #E8F5E9
+}
+[ LLM\n<<Gemini,ChatGPT,Ollama>>\n<<Langchain>>] as LLM #F3E5F5
+package "Raspberry Pi" {
 [ gRPC Server ] as GRPCServer #E1F5FE
-[ LED ] as LED #FBE9E7
+[ LED\n<<Hardware>> ] as LED #FBE9E7
+}
+
 actor "User" as User
 
-MCPClient <- User : interacts
-MCPClient --> MCPServer : MCP tools, resources
-LLM <- MCPClient: queries/completes
+User <--> MCPClient : interacts
+MCPClient <--> MCPServer : MCP
+LLM <-> MCPClient: queries/completes
 MCPServer --> GRPCServer : gRPC
 GRPCServer <-> LED : set/get
 
-package {
+package "MCP"{
     [Tools] as Tools
     [Resources] as Resources
 }
 
-MCPServer -down-> Tools
-MCPServer -down-> Resources
+MCPServer .down- Tools
+MCPServer .down- Resources
 
 @enduml

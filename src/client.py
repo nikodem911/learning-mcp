@@ -3,6 +3,7 @@ import mcp_use
 from langchain_ollama.chat_models import ChatOllama
 
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
+from langchain_openai.chat_models import ChatOpenAI
 
 
 from mcp_use import MCPAgent, MCPClient
@@ -41,7 +42,7 @@ async def main():
         print("Using Ollama LLM. Make sure Ollama server is running (ollama serve).")
         llm = ChatOllama(
             model=parsed_args.ollama_model,
-            base_url="http://localhost:11434",
+            base_url="http://192.168.3.231:11434",
         )
         llm.extract_reasoning = True  # Remove thinking
     elif parsed_args.llm == "google":
@@ -49,6 +50,8 @@ async def main():
             "Using Google Generative AI. Make sure you have set up the environment variables for Google API."
         )
         llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+    elif parsed_args.llm == "openai":
+        llm = ChatOpenAI(model="o4-mini")
     else:
         raise ValueError("Invalid LLM backend specified. Use 'ollama' or 'google'.")
 
@@ -60,16 +63,23 @@ async def main():
         llm=llm,
         client=client,
         max_steps=20,
-        system_prompt="You are an helpful AI assistant"
+        system_prompt="You are an helpful, but angry AI assistant"
         "Use the tools provided to interact with the hardware, but do not be limited by them."
-        "Reply in the languague the user requests.",
+        "Reply in the languagu`e the user requests.",
     )
 
     print(
-        "\033c## Agent Conected! ##\n",
+        "\033c## AI Agent Conected! ##\n",
         end="",
     )
 
+    model_name: str = ""
+    if hasattr(llm, "model_name"):
+        model_name = llm.model_name
+    elif hasattr(llm, "model"):
+        model_name = llm.model
+
+    print(f"Using Model: {model_name}")
     # Interactive prompt
     if not parsed_args.prompt:
         while True:
