@@ -42,7 +42,7 @@ async def main():
         print("Using Ollama LLM. Make sure Ollama server is running (ollama serve).")
         llm = ChatOllama(
             model=parsed_args.ollama_model,
-            base_url="http://192.168.3.231:11434",
+            base_url="http://localhost:11434",
         )
         llm.extract_reasoning = True  # Remove thinking
     elif parsed_args.llm == "google":
