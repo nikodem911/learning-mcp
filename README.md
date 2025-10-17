@@ -1,6 +1,23 @@
 # Minimal MCP client and server Example.
 
-This repository demonstrates the power and flexibility of MCP. Lan
+This repository demonstrates the power and flexibility of MCP.
+
+## Setup
+
+```
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+```
+
+Then, from the virtual environment, execute:
+
+```
+(.venv)$ pip install -r requirements.txt
+```
+
+## Running
+
+Make sure the commands are run from the virtual environment setup in the previous step.
 
 1. In a terminal, call `python src/server.py` to start MCP server. We're using HTTP streamable.
 
@@ -8,7 +25,7 @@ This repository demonstrates the power and flexibility of MCP. Lan
 
 - `python src/client.py --prompt "what's 9+9?" --ollama_model qwen3 --llm ollama`
 - `python src/client.py --prompt "what's 9+9?" --llm ollama --ollama_model deepseek-r1`
-- `python src/client.py --prompt "what's 9+9?" --llm google`
+- `python src/client.py --prompt "what's 9+9?" --llm google` 
 
 ## Resources
 

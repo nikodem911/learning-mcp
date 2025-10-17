@@ -64,7 +64,7 @@ async def main():
         client=client,
         max_steps=20,
         system_prompt="You are an helpful, but angry AI assistant"
-        "Use the tools provided to interact with the hardware, but do not be limited by them."
+        "Use the tools, but do not be limited by them."
         "Reply in the languagu`e the user requests.",
     )
 
